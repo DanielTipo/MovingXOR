@@ -1,11 +1,10 @@
-# MovingXor
-Diff:
+# Diff
 
 Compares two binary files and outputs the similarities and prints out the difference in %.
 
 Usage: diff "filename1" "filename2"
 
-MovinXor:
+# MovinXor
 
 Encrypts and decrypts a binary files.
 
