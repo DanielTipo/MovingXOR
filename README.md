@@ -2,11 +2,15 @@
 
 Compares two binary files and outputs the similarities and prints out the difference in %.
 
+[Download](diff.exe)
+
 Usage: diff "filename1" "filename2"
 
 # MovinXor
 
 Encrypts and decrypts a binary files.
+
+[Download](xor2.exe)
 
 Usage: xor2 "filename" "password"
 
