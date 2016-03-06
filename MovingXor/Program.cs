@@ -19,7 +19,7 @@ namespace MovingXor
             var code = args[1];
             if (code.Length < 8)
             {
-                Console.Error.WriteLine("Code is shorter than 8 charaters");
+                Console.Error.WriteLine("Code is shorter than 8 characters");
                 return;
             }
             var file = args[0];
@@ -30,30 +30,38 @@ namespace MovingXor
             }
             var file2 = file + ".xor2";
             Console.Write("Working.");
-            using (var sr = new FileStream(file, FileMode.Open))
-            using (var sw = new FileStream(file2, FileMode.OpenOrCreate))
+            try
             {
-                var cpos = 0;
-                var rpos = 1;
-                var read = 0;
-                var rbuffer = new byte[512];
-                while (0 < (read = sr.Read(rbuffer, 0, 512)))
+                using (var sr = new FileStream(file, FileMode.Open))
+                using (var sw = new FileStream(file2, FileMode.OpenOrCreate))
                 {
-                    var rnd = new Random(getcode(cpos, rpos, code));
-                    var wbuffer = new byte[read];
-                    var xbuffer = new byte[read];
-                    rnd.NextBytes(xbuffer);
-                    for (int i = 0; i < read; ++i)
-                        wbuffer[i] = (byte)((byte)rbuffer[i] ^ xbuffer[i]);
-                    sw.Write(wbuffer, 0, read);
-                    cpos++;
-                    rpos++;
-                    if (cpos == code.Length) cpos = 0;
-                    if (rpos % 1000 == 0) Console.Write('.');
+                    var cpos = 0;
+                    var rpos = 1;
+                    var read = 0;
+                    var rbuffer = new byte[512];
+                    while (0 < (read = sr.Read(rbuffer, 0, 512)))
+                    {
+                        var rnd = new Random(getcode(cpos, rpos, code));
+                        var wbuffer = new byte[read];
+                        var xbuffer = new byte[read];
+                        rnd.NextBytes(xbuffer);
+                        for (int i = 0; i < read; ++i)
+                            wbuffer[i] = (byte)((byte)rbuffer[i] ^ xbuffer[i]);
+                        sw.Write(wbuffer, 0, read);
+                        cpos++;
+                        rpos++;
+                        if (cpos == code.Length) cpos = 0;
+                        if (rpos % 1000 == 0) Console.Write('.');
+                    }
                 }
+                Console.WriteLine("Done.");
+                Console.WriteLine("Output: " + file2);
             }
-            Console.Write("Done.\r\n");
-            Console.WriteLine("Output: " + file2);
+            catch (Exception e)
+            {
+                Console.Error.WriteLine("Something happened: " + e.Message);
+                return;
+            }
         }
 
         private static int getcode(int cpos, int rpos, string code)
