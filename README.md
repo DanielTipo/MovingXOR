@@ -4,9 +4,9 @@ Compares two binary files and outputs the similarities and prints out the differ
 
 Usage: diff "filename1" "filename2"
 
-# MovinXor
+# MovingXor
 
-Encrypts and decrypts a binary files.
+Encrypts and decrypts a binary file. You can encrypt a file with an 8 or more character long password. Decrypts the file with the very same method by passing the encrypted file. 
 
 Usage: xor2 "filename" "password"
 
